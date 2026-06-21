@@ -171,6 +171,22 @@ Resolvebase 自身也遵循 Resolvebase 方法论进行维护。欢迎提交 Iss
 
 ---
 
+## 未来工作
+
+### Executor —— 让伪代码真正运行起来
+
+Resolvebase 定义了一套严谨的伪代码工作流（`resolve`、`explorePath`、`resolveStep` 等），但当前主流 LLM 往往缺乏在单次对话中真正暂停并等待环境反馈的能力。如果没有一个外部的 Python/Node.js 运行时（Runtime）来接管核心的 `while` 循环，大模型很容易在一次回复中"脑补"出从 `currentLoop = 1` 一直执行到 `target` 的整个过程，甚至伪造出观测结果。
+
+因此，Resolvebase 需要配合一个严谨的**外部执行器（Executor）**才能发挥全部实力——由 Executor 负责循环控制、状态验证和回溯调度，LLM 只需专注于每一步的 `resolveStep` 决策。
+
+### 当前进展
+
+Executor 已在积极开发中，取得了稳定且显著良好的结果。我们将在其更加稳定之后正式发布。
+
+> 值得一提的是，本仓库完全由 Resolvebase 自身逻辑维护——包括 Executor 的开发、维护与验证过程，均由 Resolvebase 自身进行。
+
+---
+
 ## 许可
 
 MIT License
